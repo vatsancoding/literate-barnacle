@@ -15,11 +15,21 @@ with open('data.csv', mode="r+") as file:
     oldData = [] 
     for line in reader: 
     	oldData.extend(line)
+file.close() 
 newData = []
 for college in data: 
 	if college not in oldData: 
 		newData.append(college)
 with open('data.csv', 'a+') as file:
-    csv.writer(file).writerow(data)
+    csv.writer(file).writerow(newData)
+file.close()
+category = [] 
+categories = ["Print with name", "Print with abbreviations or acronyms", "Print with mascot or associated symbols", "Print with departments or area of study", "Print with physical landmark", "Print with niche or general cultural references"]
+for college in newData: 
+	for cat in categories: 
+		category.append(college + " " + cat)
+with open('category.csv', 'a+') as file:
+    csv.writer(file).writerow(category)
 file.close()
 print(str(len(newData)) + " new colleges added to database")
+driver.quit()
